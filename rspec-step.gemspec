@@ -6,8 +6,8 @@ require 'rspec/step/version'
 Gem::Specification.new do |spec|
   spec.name          = "rspec-step"
   spec.version       = Rspec::Step::VERSION
-  spec.authors       = ["Thiago Pinto"]
-  spec.email         = ["tapgyn@gmail.com"]
+  spec.authors       = ["James Pinto"]
+  spec.email         = ["thejamespinto@gmail.com"]
 
   spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
   spec.description   = %q{TODO: Write a longer description or delete this line.}
@@ -22,6 +22,12 @@ Gem::Specification.new do |spec|
     spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
   end
 
+  spec.add_dependency 'rspec-example_steps'
+  spec.add_dependency 'rspec'
+  spec.add_dependency 'colorize'
+
+
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
+  # spec.add_development_dependency 'rspec'
 end
