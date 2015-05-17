@@ -144,7 +144,7 @@ module RSpec
         end
 
         def blank_step_title
-          "      "
+          "     "
         end
 
 
