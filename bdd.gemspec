@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rspec/step/version'
+require 'bdd/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "rspec-step"
-  spec.version       = Rspec::Step::VERSION
+  spec.name          = "bdd"
+  spec.version       = Bdd::VERSION
   spec.authors       = ["James Pinto"]
   spec.email         = ["thejamespinto@gmail.com"]
 
   spec.summary       = %q{Cucumber style in your RSpec tests}
   spec.description   = %q{Cucumber style in your RSpec tests}
-  spec.homepage      = "https://github.com/thejamespinto/rspec-step"
+  spec.homepage      = "https://github.com/thejamespinto/bdd"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"

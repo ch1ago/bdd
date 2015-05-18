@@ -9,7 +9,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rspec-step'
+gem 'bdd'
 ```
 
 And then execute:
@@ -18,11 +18,15 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install rspec-step
+    $ gem install bdd
 
 ## Usage
 
-TODO: Write usage instructions here
+Add this to your spec_helper.rb file
+
+```ruby
+require 'bdd'
+```
 
 ## Development
 
@@ -32,7 +36,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/rspec-step/fork )
+1. Fork it ( https://github.com/[my-github-username]/bdd/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
