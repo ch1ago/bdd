@@ -4,7 +4,7 @@ require "colorize"
 
 
 
-require "bdd/rspec" # if defined? ::RSpec
+require "bdd/rspec" if defined? RSpec
 # TODO: require "bdd/test_unit" # if 
 # TODO: require "bdd/minitest"  # if 
 
