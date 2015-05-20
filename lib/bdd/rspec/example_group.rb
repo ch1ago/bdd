@@ -3,24 +3,30 @@ module Bdd
     module ExampleGroup
 
       
-      def step(msg)
+      def step(array, &block)
         m = ::RSpec.current_example.metadata
+        step_messages = m[:step_messages]
         
         if block_given?
-          # m[:step_messages] << msg #if m[:step_messages]
+          # m[:step_messages] << array #if m[:step_messages]
           if @is_during_rspec_step
             yield
           else
-            m[:step_messages] << hash = {msg: msg}
+            step_messages << hash = {msg: array}
             @is_during_rspec_step = true
             yield
             # apply green color if example passes
             hash[:color] = :green
             @is_during_rspec_step = false
           end
+
+        elsif array.last == :bdd
+          a = step_messages.last[:msg]
+          a[0] = array[0]
         else
-          m[:step_messages] << {msg: "SKIPPED #{msg}"}
+          step_messages << {msg: "SKIPPED #{array}"}
         end
+        return :bdd
       end
 
       def Given(msg, &block)

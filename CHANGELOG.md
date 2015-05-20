@@ -8,6 +8,11 @@
 - Removing dependency 'rspec-example_steps'
 - No more need to have a .rspec with color and documentation format
 
+### May 20th 2015
+
+> @thejamespinto
+- renaming feature
+
 
 
 

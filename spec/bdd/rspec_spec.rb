@@ -6,23 +6,27 @@ describe Bdd::RSpec do
   #   expect(false).to eq(true)
   # end
 
+  def nested
+    Given "1.1 something" do
+      expect(true).to eq(true)
+    end
+  end
+
   it "Works" do
-    Given "something" do
+    Given "1 something" do
       expect(true).to eq(true)
     end
-    But "something" do
+    But nested
+    When "2 something" do
       expect(true).to eq(true)
     end
-    When "something" do
+    And "3 something" do
       expect(true).to eq(true)
     end
-    And "something" do
+    Then "4 something" do
       expect(true).to eq(true)
     end
-    Then "something" do
-      expect(true).to eq(true)
-    end
-    Then "something" do
+    Then "5 something" do
       expect(true).to eq(true)
     end
   end

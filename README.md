@@ -181,6 +181,55 @@ Output:
 </pre>
 
 
+### Renaming
+
+Useful for refactored nesting, you can change a step's name
+
+```ruby
+def when_I_log_in
+  When "I log in" do
+    visit '/login'
+    fill_in 'Login', with: 'jack@example.com'
+    fill_in 'Password', with: 'password'
+    click_button "Log in"
+    expect(page).to have_content('Welcome jack@example.com')
+  end
+end
+
+
+def given_I_log_in
+  Given when_I_log_in
+end
+
+context 'User Flow'
+  it 'User updates profile description' do
+    given_I_log_in
+    When 'I update profile description' do
+      ...
+    end
+    then_I_should_see_a_confirmation_message
+  end
+
+  it 'User updates profile avatar' do
+    given_I_log_in
+    When 'I update profile avatar' do
+      ...
+    end
+    then_I_should_see_a_confirmation_message
+  end
+end
+```
+Output:
+<pre>
+<b>User Flow</b>
+  <b>User updates profile description</b>
+    <b>Given</b> I log in
+    <b> When</b> I update profile description
+    <b> Then</b> I should see a confirmation message
+</pre>
+
+
+
 
 
 
@@ -217,5 +266,5 @@ __internationalization__ pull requests are wanted.
 
 <pre>
   <b>rspec-steps</b>, <b>rspec-given</b> and <b>rspec-example_steps</b> run <i>AS</i> examples.
-  <b>bdd</b> and <b>cucumber</b> run <i>INSIDE</i> examples.
+  <b>bdd</b> and <b>cucumber</b> run <i>INSIDE</i> examples, running tests faster.
 </pre>
