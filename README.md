@@ -92,7 +92,7 @@ def then_I_should_see_a_confirmation_message
   end
 end
 
-context 'User Flow'
+context 'User Flow' do
   it 'User updates profile description' do
     given_I_log_in
     When 'I update profile description' do
@@ -153,7 +153,7 @@ def given_I_log_in
   end
 end
 
-context 'User Flow'
+context 'User Flow' do
   it 'User updates profile description' do
     given_I_log_in
     When 'I update profile description' do
