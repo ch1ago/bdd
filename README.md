@@ -37,12 +37,16 @@ end
 ### RSpec
 
 Run specs with custom format specified inline:
-```
+
+`
 rspec --format Bdd::RSpec::Formatter --color spec
-```
+`
 
 Or, if you want to use as your default formatter, simply put the options in your .rspec file:
-```
+
+`.rspec`
+
+```yml
 --format Bdd::RSpec::Formatter
 --color
 ```
