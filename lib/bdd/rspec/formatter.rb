@@ -38,11 +38,11 @@ module Bdd
             msg0 =  if msg[0] == last_step_title
                       blank_step_title
                     else
-                      msg[0].light_white.bold
+                      text_with_color(msg[0], :white)
                     end
             last_step_title = msg[0]
 
-            msg = [msg0, msg[1].colorize(color)].join(' ')
+            msg = [msg0, text_with_color(msg[1], color)].join(' ')
           end
           # light_black doesn't really get used because the test failure prevents other messages from being added
           r = [next_indentation, msg]
@@ -56,6 +56,16 @@ module Bdd
 
       def next_indentation
         '  ' * (@group_level+1)
+      end
+
+      private
+
+      def text_with_color(text, color)
+        if ::RSpec.configuration.color_enabled?
+          text.colorize(color)
+        else
+          text
+        end
       end
 
     end
