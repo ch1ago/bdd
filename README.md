@@ -16,21 +16,30 @@ This gem brings two major functionality to your tests
 
 
 
-### Installation
+## Installation
+
+Include in your Gemfile:
 
 ```ruby
-gem 'bdd'
+group :test do
+  gem 'bdd'
+end
 ```
 
-Add to `spec/spec_helper.rb`
+### RSpec
 
-```ruby
-require 'bdd'
+Run specs with custom format specified inline:
+```
+rspec --format Bdd::RSpec::Formatter --color spec
 ```
 
+Or, if you want to use as your default formatter, simply put the options in your .rspec file:
+```
+--format Bdd::RSpec::Formatter
+--color
+```
 
-
-### Example
+## Output Example
 
 `spec/features/search_spec.rb`
 

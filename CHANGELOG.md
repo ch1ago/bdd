@@ -2,6 +2,13 @@
 
 ## IN PROGRESS
 
+### June 17th 2015
+
+> @rafaelsales
+-   Does not force BDD formatting when gem is included in Gemfile
+    To use BDD Formatter follow steps in installation section of README
+-   Remove monkey patch of RSpec documentation formatter
+
 ### May 19th 2015
 
 > @thejamespinto

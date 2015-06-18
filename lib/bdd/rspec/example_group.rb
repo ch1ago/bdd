@@ -2,13 +2,13 @@ module Bdd
   module RSpec
     module ExampleGroup
 
-      
       def step(array, &block)
-        m = ::RSpec.current_example.metadata
-        step_messages = m[:step_messages]
-        
+        unless using_bdd_formatter?
+          yield if block_given?
+          return
+        end
+
         if block_given?
-          # m[:step_messages] << array #if m[:step_messages]
           if @is_during_rspec_step
             yield
           else
@@ -74,6 +74,15 @@ module Bdd
       # end
 
 
+      private
+
+      def step_messages
+        ::RSpec.current_example.metadata[:step_messages]
+      end
+
+      def using_bdd_formatter?
+        !step_messages.nil?
+      end
     end
   end
 end
