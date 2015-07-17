@@ -1,34 +1,52 @@
 require 'spec_helper'
+require 'support/rspec_formatter_support'
 
-describe Bdd::RSpec do
+describe Bdd::RSpec::Formatter do
+  include RSpecFormatterSupport
 
-  # it 'does something useful' do
-  #   expect(false).to eq(true)
-  # end
-
-  def nested
-    Given "1.1 something" do
-      expect(true).to eq(true)
-    end
+  before do
+    allow(::RSpec.configuration).to receive(:color_enabled?).and_return false
   end
 
-  it "Works" do
-    Given "1 something" do
-      expect(true).to eq(true)
-    end
-    But nested
-    When "2 something" do
-      expect(true).to eq(true)
-    end
-    And "3 something" do
-      expect(true).to eq(true)
-    end
-    Then "4 something" do
-      expect(true).to eq(true)
-    end
-    Then "5 something" do
-      expect(true).to eq(true)
-    end
-  end
+  it "represents nested groups using hierarchy tree" do
+    suite = RSpec.describe("root").tap do |describe|
+      describe.context("a certain context").tap do |context|
 
+        context.example("a complex example") do
+          Given("given a condition X") { }
+          And("a condition Y") {}
+
+          When("an action is performed") {}
+
+          Then("an outcome A happens") {}
+          Then("and an outcome B happens") {}
+        end
+
+        context.example("a simple example") do
+          Given("given a condition") {}
+
+          When("an action is performed") {}
+
+          Then("an outcome happens") {}
+        end
+      end
+    end
+
+    suite.run(reporter)
+
+    expect(formatter_output.string).to eql("
+root
+  a certain context
+    a complex example
+       Given given a condition X
+         And a condition Y
+        When an action is performed
+        Then an outcome A happens
+             and an outcome B happens
+    a simple example
+       Given given a condition
+        When an action is performed
+        Then an outcome happens
+")
+  end
 end
