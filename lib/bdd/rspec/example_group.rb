@@ -73,6 +73,15 @@ module Bdd
       #   step(" But Then #{msg}", &block)
       # end
 
+      module ClassMethods
+        def Given(msg, &block)
+          before(:each) { Given(msg, &block) }
+        end
+
+        def Then(msg, &block)
+          after(:each) { Then(msg, &block) }
+        end
+      end
 
       private
 

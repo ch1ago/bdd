@@ -89,7 +89,6 @@ end
 </pre>
 
 
-
 ### Shared Steps
 
 ### Basic Example with shared steps
@@ -141,7 +140,53 @@ Output:
 </pre>
 
 
-### Nested Example with shared steps
+
+### Nested Example 1
+
+Outside of the scope
+
+Given is automatically inserted as a before
+Then is automatically inserted as an after
+
+```ruby
+Given "I log in" do
+  visit '/login'
+  fill_in 'Login', with: 'jack@example.com'
+  fill_in 'Password', with: 'password'
+  click_button "Log in"
+  expect(page).to have_content('Welcome jack@example.com')
+end
+
+Then "I should see a confirmation message" do
+  expect(page).to have_content('Your profile was updated successfully')
+end
+
+context 'User Flow' do
+  it 'User updates profile description' do
+    When 'I update profile description' do
+      ...
+    end
+  end
+
+  it 'User updates profile avatar' do
+    When 'I update profile avatar' do
+      ...
+    end
+  end
+end
+```
+Output:
+<pre>
+<b>User Flow</b>
+  <b>User updates profile description</b>
+    <b>Given</b> I log in
+    <b> When</b> I update profile description
+    <b> Then</b> I should see a confirmation message
+</pre>
+
+
+
+### Nested Example 2
 
 Nesting will silence any output from the internal steps
 
