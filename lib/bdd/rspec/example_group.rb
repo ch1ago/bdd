@@ -75,11 +75,15 @@ module Bdd
 
       module ClassMethods
         def Given(msg, &block)
-          before(:each) { Given(msg, &block) }
+          before(:each) do
+            Given(msg) { instance_eval(&block) }
+          end
         end
 
         def Then(msg, &block)
-          after(:each) { Then(msg, &block) }
+          after(:each) do
+            Then(msg) { instance_eval(&block) }
+          end
         end
       end
 
