@@ -80,6 +80,12 @@ module Bdd
           end
         end
 
+        def When(msg, &block)
+          after(:each) do
+            When(msg) { instance_eval(&block) }
+          end
+        end
+
         def Then(msg, &block)
           after(:each) do
             Then(msg) { instance_eval(&block) }
