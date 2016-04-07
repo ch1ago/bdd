@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'bdd/rspec'
 require 'support/rspec_formatter_support'
 
 describe Bdd::RSpec::Formatter do

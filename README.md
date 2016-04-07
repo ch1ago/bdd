@@ -30,11 +30,22 @@ Include in your Gemfile:
 
 ```ruby
 group :test do
-  gem 'bdd'
+  # pick one
+  gem 'bdd', require: 'bdd/rspec'
+  gem 'bdd', require: 'bdd/minitest'
 end
 ```
 
+
+
 ### RSpec
+
+```ruby
+group :test do
+  gem 'rspec'
+  gem 'bdd', require: 'bdd/rspec'
+end
+```
 
 Run specs with custom format specified inline:
 
@@ -50,6 +61,31 @@ Or, if you want to use as your default formatter, simply put the options in your
 --format Bdd::RSpec::Formatter
 --color
 ```
+
+
+
+
+### Minitest
+
+```ruby
+group :test do
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'bdd', require: 'bdd/minitest'
+end
+```
+
+Add this to your `test/test_helper.rb` file.
+
+```ruby
+Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
+```
+
+
+
+
+
+
 
 ## Output Example
 
