@@ -4,9 +4,9 @@ Bdd brings cucumber-style Given/When/Then/And/But steps for RSpec examples
 
 ### Status
 
-| Master | Gem Version |
+| Our Tests | Gem Version |
 | :----: | :----: |
-| [![Master Build Status](https://img.shields.io/travis/thejamespinto/bdd.svg)](https://travis-ci.org/thejamespinto/bdd) | [![Gem Version](https://img.shields.io/gem/v/bdd.svg)](https://rubygems.org/gems/bdd) |
+| [![Master Build Status](https://travis-ci.org/thejamespinto/bdd.svg?branch=master)](https://travis-ci.org/thejamespinto/bdd) | [![Gem Version](https://img.shields.io/gem/v/bdd.svg)](https://rubygems.org/gems/bdd) |
 
 
 [![GitHub License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://rubygems.org/gems/bdd)
