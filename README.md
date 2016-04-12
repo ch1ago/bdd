@@ -1,6 +1,6 @@
 ## Bdd
 
-Bdd brings cucumber-style Given/When/Then/And/But steps for RSpec examples
+Bdd brings you cucumber-style Given/When/Then/And/But test reports
 
 ### Status
 
