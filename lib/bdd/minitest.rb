@@ -26,11 +26,19 @@ module Kernel
   end
 
   def When(string, &block)
-    bdd_step('When', string, &block)
+    bdd_step(' When', string, &block)
   end
 
   def Then(string, &block)
-    bdd_step('Then', string, &block)
+    bdd_step(' Then', string, &block)
+  end
+
+  def And(string, &block)
+    bdd_step('  And', string, &block)
+  end
+
+  def But(string, &block)
+    bdd_step('  But', string, &block)
   end
 end
 
