@@ -5,61 +5,45 @@ require 'minitest'
 require 'minitest/reporters'
 require 'minitest/spec' # I don't understand why this does not load automatically
 
-
-#
-# Adding behavior to minitest
-#
-module Kernel
-  def bdd_step(title, string, &block)
-    final_string = "    #{title} ".white.bold
-    yield
-    final_string << string.green
-  rescue ::Minitest::Assertion
-    final_string << string.red
-    raise
-  ensure
-    Minitest::Bdd.messages << final_string
-  end
-
-  def Given(string, &block)
-    bdd_step('Given', string, &block)
-  end
-
-  def When(string, &block)
-    bdd_step(' When', string, &block)
-  end
-
-  def Then(string, &block)
-    bdd_step(' Then', string, &block)
-  end
-
-  def And(string, &block)
-    bdd_step('  And', string, &block)
-  end
-
-  def But(string, &block)
-    bdd_step('  But', string, &block)
-  end
-end
-
-
-module Minitest
-  module Bdd
-    #
-    # This is a simple shortcut
-    #
-    class << self
-      def messages
-        Minitest::Spec.current.bdd_messages
-      end
-    end
-
+module Bdd
+  module Minitest
     #
     # Adding behavior to minitest
     #
     module Test
       def bdd_messages
         @bdd_messages ||= []
+      end
+
+      def bdd_step(title, string, &block)
+        final_string = "    #{title} ".white.bold
+        yield
+        final_string << string.green
+      rescue ::Minitest::Assertion
+        final_string << string.red
+        raise
+      ensure
+        bdd_messages << final_string
+      end
+
+      def Given(string, &block)
+        bdd_step('Given', string, &block)
+      end
+
+      def When(string, &block)
+        bdd_step(' When', string, &block)
+      end
+
+      def Then(string, &block)
+        bdd_step(' Then', string, &block)
+      end
+
+      def And(string, &block)
+        bdd_step('  And', string, &block)
+      end
+
+      def But(string, &block)
+        bdd_step('  But', string, &block)
       end
 
       module ClassMethods
@@ -83,10 +67,9 @@ module Minitest
       end
     end
   end
+end
 
-  Test.send :include, Bdd::Test
-  Test.send :extend, Bdd::Test::ClassMethods
-
+module Minitest
   #
   # Adding behavior to minitest-reporters
   #
@@ -108,10 +91,13 @@ module Minitest
     end
 
     def record_hook_before_print_failures(test)
-      if Minitest::Bdd.messages.any?
-        puts Minitest::Bdd.messages
+      if test.bdd_messages.any?
+        puts test.bdd_messages
         puts
       end
     end
   end
 end
+
+Minitest::Test.send :include, Bdd::Minitest::Test
+Minitest::Test.send :extend,  Bdd::Minitest::Test::ClassMethods
