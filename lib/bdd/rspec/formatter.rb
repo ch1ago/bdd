@@ -4,6 +4,8 @@ module Bdd
   module RSpec
     class Formatter < ::RSpec::Core::Formatters::DocumentationFormatter
 
+      DEFAULT_PREFIX_LENGTH = 5
+
       ::RSpec::Core::Formatters.register self, :example_group_started, :example_group_finished,
                                          :example_started, :example_passed,
                                          :example_pending, :example_failed
@@ -34,13 +36,20 @@ module Bdd
         example.metadata[:step_messages].map do |hash|
           msg   = hash[:msg]
           color = hash[:color] || color2 || :light_black
-          if msg.is_a? Array
-            msg0 =  if msg[0] == last_step_title
-                      blank_step_title
-                    else
-                      text_with_color(msg[0], :white)
-                    end
-            last_step_title = msg[0]
+          prefix_length = hash[:prefix_length]
+          if
+            msg.is_a? Array
+          then
+            msg0 = msg[0]
+            if
+              msg0 == last_step_title
+            then
+              msg0 = blank_step_title(prefix_length)
+            else
+              last_step_title = msg0
+              msg0 = "%#{prefix_length}s" % msg0 if prefix_length
+              msg0 = text_with_color(msg0, :white)
+            end
 
             msg = [msg0, text_with_color(msg[1], color)].join(' ')
           end
@@ -50,8 +59,9 @@ module Bdd
         end
       end
 
-      def blank_step_title
-        "     "
+      def blank_step_title(length)
+        length ||= DEFAULT_PREFIX_LENGTH
+        "%#{length}s" % ""
       end
 
       def next_indentation
@@ -61,7 +71,9 @@ module Bdd
       private
 
       def text_with_color(text, color)
-        if ::RSpec.configuration.color_enabled?
+        if
+          ::RSpec.configuration.color_enabled?
+        then
           text.colorize(color)
         else
           text
