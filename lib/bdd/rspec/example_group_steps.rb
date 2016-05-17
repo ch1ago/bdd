@@ -56,7 +56,7 @@ module Bdd
         elsif
           prefix_and_text[1] == :bdd
         then
-          last_message    = bdd_step_messages.last[:msg]
+          last_message    = bdd_step_messages.last
           last_message[0] = prefix_and_text[0]
 
         else
