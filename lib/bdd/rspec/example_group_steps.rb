@@ -47,7 +47,7 @@ module Bdd
           then
             yield
           else
-            bdd_step_messages << hash = {msg: prefix_and_text}
+            bdd_step_messages << prefix_and_text
             @is_during_rspec_step = true
             yield
             @is_during_rspec_step = false
@@ -60,7 +60,7 @@ module Bdd
           last_message[0] = prefix_and_text[0]
 
         else
-          bdd_step_messages << {msg: "SKIPPED #{prefix_and_text}"}
+          bdd_step_messages << "SKIPPED #{prefix_and_text}"
         end
         return :bdd
       end

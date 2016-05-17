@@ -6,7 +6,7 @@ module Bdd
 
       DEFAULT_PREFIX_LENGTH   = 5
 
-      SHELL_COLOR_DEFINITIONS =
+      SHELL_COLORS_DEFINITION =
       {
         :black   => 30, :light_black    => 90,
         :red     => 31, :light_red      => 91,
@@ -44,36 +44,32 @@ module Bdd
 
     private
 
-      def read_steps(example, color2=nil)
-        last_step_title = ""
-        prefix_length   = example.metadata[:bdd_prefix_max_length]
+      def read_steps(example, text_color)
+        last_step_prefix = ""
+        prefix_length    = example.metadata[:bdd_prefix_max_length]
 
-        example.metadata[:bdd_step_messages].map do |hash|
-          msg   = hash[:msg]
-          color = hash[:color] || color2 || :light_black
+        example.metadata[:bdd_step_messages].map do |msg|
           if
             msg.is_a? Array
           then
-            msg0 = msg[0]
+            prefix, text = msg
             if
-              msg0 == last_step_title
+              prefix == last_step_prefix
             then
-              msg0 = blank_step_title(prefix_length)
+              prefix = blank_step_prefix(prefix_length)
             else
-              last_step_title = msg0
-              msg0 = "%#{prefix_length}s" % msg0 if prefix_length
-              msg0 = text_with_color(msg0, :white)
+              last_step_prefix = prefix
+              prefix = "%#{prefix_length}s" % prefix if prefix_length
+              prefix = text_with_color(prefix, :white)
             end
 
-            msg = [msg0, text_with_color(msg[1], color)].join(' ')
+            msg = [prefix, text_with_color(text, text_color)].join(' ')
           end
-          # light_black doesn't really get used because the test failure prevents other messages from being added
-          r = [next_indentation, msg]
-          r.join(' ')
+          [next_indentation, msg].join(' ')
         end
       end
 
-      def blank_step_title(length)
+      def blank_step_prefix(length)
         length ||= DEFAULT_PREFIX_LENGTH
         "%#{length}s" % ""
       end
@@ -88,7 +84,7 @@ module Bdd
         if
           ::RSpec.configuration.color_enabled?
         then
-          "\033[#{SHELL_COLOR_DEFINITIONS[color]}m#{text}\033[0m"
+          "\033[#{SHELL_COLORS_DEFINITION[color]}m#{text}\033[0m"
         else
           text
         end
