@@ -50,8 +50,6 @@ module Bdd
             bdd_step_messages << hash = {msg: prefix_and_text}
             @is_during_rspec_step = true
             yield
-            # apply green color if example passes
-            hash[:color] = :green
             @is_during_rspec_step = false
           end
 

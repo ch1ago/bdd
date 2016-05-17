@@ -4,7 +4,20 @@ module Bdd
   module RSpec
     class Formatter < ::RSpec::Core::Formatters::DocumentationFormatter
 
-      DEFAULT_PREFIX_LENGTH = 5
+      DEFAULT_PREFIX_LENGTH   = 5
+
+      SHELL_COLOR_DEFINITIONS =
+      {
+        :black   => 30, :light_black    => 90,
+        :red     => 31, :light_red      => 91,
+        :green   => 32, :light_green    => 92,
+        :yellow  => 33, :light_yellow   => 93,
+        :blue    => 34, :light_blue     => 94,
+        :magenta => 35, :light_magenta  => 95,
+        :cyan    => 36, :light_cyan     => 96,
+        :white   => 37, :light_white    => 97,
+        :default => 39
+      }
 
       ::RSpec::Core::Formatters.register self, :example_group_started, :example_group_finished,
                                          :example_started, :example_passed,
@@ -16,7 +29,7 @@ module Bdd
 
       def example_passed(passed)
         super
-        output.puts read_steps(passed.example)
+        output.puts read_steps(passed.example, :green)
       end
 
       def example_pending(pending)
@@ -75,7 +88,7 @@ module Bdd
         if
           ::RSpec.configuration.color_enabled?
         then
-          text.colorize(color)
+          "\033[#{SHELL_COLOR_DEFINITIONS[color]}m#{text}\033[0m"
         else
           text
         end
