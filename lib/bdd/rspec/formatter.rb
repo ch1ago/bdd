@@ -11,7 +11,7 @@ module Bdd
                                          :example_pending, :example_failed
 
       def example_started(notification)
-        notification.example.metadata[:step_messages] = []
+        notification.example.metadata[:bdd_step_messages] = []
       end
 
       def example_passed(passed)
@@ -33,10 +33,11 @@ module Bdd
 
       def read_steps(example, color2=nil)
         last_step_title = ""
-        example.metadata[:step_messages].map do |hash|
+        prefix_length   = example.metadata[:bdd_prefix_max_length]
+
+        example.metadata[:bdd_step_messages].map do |hash|
           msg   = hash[:msg]
           color = hash[:color] || color2 || :light_black
-          prefix_length = hash[:prefix_length]
           if
             msg.is_a? Array
           then
@@ -68,7 +69,7 @@ module Bdd
         '  ' * (@group_level+1)
       end
 
-      private
+    private
 
       def text_with_color(text, color)
         if
