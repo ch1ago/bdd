@@ -1,3 +1,5 @@
+require 'bdd/colors'
+
 RSpec::Support.require_rspec_core "formatters/documentation_formatter"
 
 module Bdd
@@ -5,19 +7,6 @@ module Bdd
     class Formatter < ::RSpec::Core::Formatters::DocumentationFormatter
 
       DEFAULT_PREFIX_LENGTH   = 5
-
-      SHELL_COLORS_DEFINITION =
-      {
-        :black   => 30, :light_black    => 90,
-        :red     => 31, :light_red      => 91,
-        :green   => 32, :light_green    => 92,
-        :yellow  => 33, :light_yellow   => 93,
-        :blue    => 34, :light_blue     => 94,
-        :magenta => 35, :light_magenta  => 95,
-        :cyan    => 36, :light_cyan     => 96,
-        :white   => 37, :light_white    => 97,
-        :default => 39
-      }
 
       ::RSpec::Core::Formatters.register self, :example_group_started, :example_group_finished,
                                          :example_started, :example_passed,
@@ -60,10 +49,10 @@ module Bdd
             else
               last_step_prefix = prefix
               prefix = "%#{prefix_length}s" % prefix if prefix_length
-              prefix = text_with_color(prefix, :white)
+              prefix = Colors.add_color(prefix, :white)
             end
 
-            msg = [prefix, text_with_color(text, text_color)].join(' ')
+            msg = [prefix, Colors.add_color(text, text_color)].join(' ')
           end
           [next_indentation, msg].join('')
         end
@@ -76,18 +65,6 @@ module Bdd
 
       def next_indentation
         '  ' * (@group_level+1)
-      end
-
-    private
-
-      def text_with_color(text, color)
-        if
-          ::RSpec.configuration.color_enabled?
-        then
-          "\033[#{SHELL_COLORS_DEFINITION[color]}m#{text}\033[0m"
-        else
-          text
-        end
       end
 
     end
