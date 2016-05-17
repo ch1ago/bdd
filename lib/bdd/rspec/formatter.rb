@@ -65,7 +65,7 @@ module Bdd
 
             msg = [prefix, text_with_color(text, text_color)].join(' ')
           end
-          [next_indentation, msg].join(' ')
+          [next_indentation, msg].join('')
         end
       end
 

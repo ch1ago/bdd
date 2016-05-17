@@ -43,19 +43,19 @@ describe Bdd::RSpec::Formatter do
 root
   a certain context
     a complex example
-       Given a condition W
-             a condition X
-         And a condition Y
-        When an action is performed
-        Then an outcome A happens
-             and an outcome B happens
-             an outcome W2 happens
+      Given a condition W
+            a condition X
+        And a condition Y
+       When an action is performed
+       Then an outcome A happens
+            and an outcome B happens
+            an outcome W2 happens
     a simple example
-       Given a condition W
-             a condition
-        When an action is performed
-        Then an outcome happens
-             an outcome W2 happens
+      Given a condition W
+            a condition
+       When an action is performed
+       Then an outcome happens
+            an outcome W2 happens
 ")
   end
 end
