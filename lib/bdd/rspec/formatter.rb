@@ -49,12 +49,22 @@ module Bdd
             else
               last_step_prefix = prefix
               prefix = "%#{prefix_length}s" % prefix if prefix_length
-              prefix = Colors.add_color(prefix, :white)
+              prefix = add_color(prefix, :white)
             end
 
-            msg = [prefix, Colors.add_color(text, text_color)].join(' ')
+            msg = [prefix, add_color(text, text_color)].join(' ')
           end
           [next_indentation, msg].join('')
+        end
+      end
+
+      def add_color(text, color, mode = :default)
+        if
+          ::RSpec.configuration.color_enabled?
+        then
+          Colors.add_color(text, color, mode)
+        else
+          text
         end
       end
 

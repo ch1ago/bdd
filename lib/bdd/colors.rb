@@ -26,13 +26,7 @@ module Bdd
   private
 
     def self.add_color(text, color, mode = :default)
-      if
-        ::RSpec.configuration.color_enabled?
-      then
-        "\033[#{SHELL_MODES_DEFINITION[mode]};#{SHELL_COLORS_DEFINITION[color]}m#{text}\033[0m"
-      else
-        text
-      end
+      "\033[#{SHELL_MODES_DEFINITION[mode]};#{SHELL_COLORS_DEFINITION[color]}m#{text}\033[0m"
     end
   end
 end
