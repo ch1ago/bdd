@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'bdd/colors'
 require 'bdd/minitest'
 
 class Meme
@@ -56,7 +57,7 @@ describe Minitest::Reporters::SpecReporter do
   it "test_that_kitty_can_eat" do
     run_test 'test_that_kitty_can_eat'
 
-    output = uncolorize(@reporter.io.string)
+    output = Bdd::Colors.remove_color(@reporter.io.string)
     expect(output).to include('test_that_kitty_can_eat')
     expect(output).to include('PASS')
     expect(output).to include('Given a meme')
@@ -69,7 +70,7 @@ describe Minitest::Reporters::SpecReporter do
   it "test_that_kitty_will_blend" do
     run_test 'test_that_kitty_will_blend'
 
-    output = uncolorize(@reporter.io.string)
+    output = Bdd::Colors.remove_color(@reporter.io.string)
     expect(output).to include('test_that_kitty_will_blend')
     expect(output).to include('FAIL')
     expect(output).to include('When I want to blend kitty')
@@ -81,7 +82,4 @@ describe Minitest::Reporters::SpecReporter do
     expect(@test.failures.count).to eq(1)
   end
 
-  def uncolorize(text)
-    text.gsub(/\033\[[0-9;]+m/m, "")
-  end
 end
