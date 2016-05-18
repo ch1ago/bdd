@@ -35,27 +35,27 @@ module Bdd
 
       def read_steps(example, text_color)
         last_step_prefix = ""
-        prefix_length    = example.metadata[:bdd_prefix_max_length]
+        prefix_length    = example.metadata[:bdd_prefix_max_length] || DEFAULT_PREFIX_LENGTH
 
-        example.metadata[:bdd_step_messages].map do |msg|
+        example.metadata[:bdd_step_messages].map do |prefix, text|
           if
-            msg.is_a? Array
+            prefix == last_step_prefix
           then
-            prefix, text = msg
-            if
-              prefix == last_step_prefix
-            then
-              prefix = blank_step_prefix(prefix_length)
-            else
-              last_step_prefix = prefix
-              prefix = "%#{prefix_length}s" % prefix if prefix_length
-              prefix = add_color(prefix, :white)
-            end
-
-            msg = [prefix, add_color(text, text_color)].join(' ')
+            prefix = ""
+          else
+            last_step_prefix = prefix
           end
-          [next_indentation, msg].join('')
+
+          prefix = adjust_length(prefix, prefix_length)
+          prefix = add_color(prefix, :white)
+          text   = add_color(text, text_color)
+
+          "#{next_indentation}#{prefix} #{text}"
         end
+      end
+
+      def adjust_length(text, length)
+        "%#{length}s" % text
       end
 
       def add_color(text, color, mode = :default)
@@ -66,11 +66,6 @@ module Bdd
         else
           text
         end
-      end
-
-      def blank_step_prefix(length)
-        length ||= DEFAULT_PREFIX_LENGTH
-        "%#{length}s" % ""
       end
 
       def next_indentation
