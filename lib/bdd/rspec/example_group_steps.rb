@@ -39,30 +39,24 @@ module Bdd
           ::RSpec.current_example.metadata[:bdd_prefix_max_length] = bdd_steps.map(&:length).max
         end
 
+        @is_during_rspec_step ||= 0
         if
           block_given?
         then
-          if
-            @is_during_rspec_step
-          then
-            yield
-          else
-            bdd_step_messages << prefix_and_text
-            @is_during_rspec_step = true
-            yield
-            @is_during_rspec_step = false
-          end
-
-        elsif
-          prefix_and_text[1] == :bdd
-        then
-          last_message    = bdd_step_messages.last
-          last_message[0] = prefix_and_text[0]
-
+          add_bdd_message prefix_and_text
+          # increase the counter so any nested messages are ignored
+          @is_during_rspec_step += 1
+          yield
+          @is_during_rspec_step -= 1
         else
-          bdd_step_messages << "SKIPPED #{prefix_and_text}"
+          add_bdd_message "SKIPPED #{prefix_and_text}"
         end
         return :bdd
+      end
+
+      # uses only the top message
+      def add_bdd_message(text)
+        bdd_step_messages << text if @is_during_rspec_step == 0
       end
 
       def bdd_step_messages

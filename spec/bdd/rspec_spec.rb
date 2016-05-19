@@ -17,7 +17,11 @@ describe Bdd::RSpec::Formatter do
 
         context.example("a complex example") do
           Given("a condition X") { }
-          And("a condition Y") {}
+          And("a condition Y") {
+            Then("overwrite happened") {
+              But("it did nothing")
+            }
+          }
 
           When("an action is performed") {}
 
