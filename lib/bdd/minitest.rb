@@ -1,4 +1,4 @@
-require 'colorize'
+require 'bdd/colors'
 require 'bdd/version'
 
 require 'minitest'
@@ -16,11 +16,11 @@ module Bdd
       end
 
       def bdd_step(title, string, &block)
-        final_string = "    #{title} ".white.bold
+        final_string = Colors.add_color("    #{title} ", :white, :bold)
         yield
-        final_string << string.green
+        final_string << Colors.add_color(string, :green)
       rescue ::Minitest::Assertion
-        final_string << string.red
+        final_string << Colors.add_color(string, :red)
         raise
       ensure
         bdd_messages << final_string

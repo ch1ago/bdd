@@ -1,20 +1,24 @@
+require 'bdd/colors'
+
 RSpec::Support.require_rspec_core "formatters/documentation_formatter"
 
 module Bdd
   module RSpec
     class Formatter < ::RSpec::Core::Formatters::DocumentationFormatter
 
+      DEFAULT_PREFIX_LENGTH   = 5
+
       ::RSpec::Core::Formatters.register self, :example_group_started, :example_group_finished,
                                          :example_started, :example_passed,
                                          :example_pending, :example_failed
 
       def example_started(notification)
-        notification.example.metadata[:step_messages] = []
+        notification.example.metadata[:bdd_step_messages] = []
       end
 
       def example_passed(passed)
         super
-        output.puts read_steps(passed.example)
+        output.puts read_steps(passed.example, :green)
       end
 
       def example_pending(pending)
@@ -29,43 +33,43 @@ module Bdd
 
     private
 
-      def read_steps(example, color2=nil)
-        last_step_title = ""
-        example.metadata[:step_messages].map do |hash|
-          msg   = hash[:msg]
-          color = hash[:color] || color2 || :light_black
-          if msg.is_a? Array
-            msg0 =  if msg[0] == last_step_title
-                      blank_step_title
-                    else
-                      text_with_color(msg[0], :white)
-                    end
-            last_step_title = msg[0]
+      def read_steps(example, text_color)
+        last_step_prefix = ""
+        prefix_length    = example.metadata[:bdd_prefix_max_length] || DEFAULT_PREFIX_LENGTH
 
-            msg = [msg0, text_with_color(msg[1], color)].join(' ')
+        example.metadata[:bdd_step_messages].map do |prefix, text|
+          if
+            prefix == last_step_prefix
+          then
+            prefix = ""
+          else
+            last_step_prefix = prefix
           end
-          # light_black doesn't really get used because the test failure prevents other messages from being added
-          r = [next_indentation, msg]
-          r.join(' ')
+
+          prefix = adjust_length(prefix, prefix_length)
+          prefix = add_color(prefix, :white)
+          text   = add_color(text, text_color)
+
+          "#{next_indentation}#{prefix} #{text}"
         end
       end
 
-      def blank_step_title
-        "     "
+      def adjust_length(text, length)
+        "%#{length}s" % text
+      end
+
+      def add_color(text, color, mode = :default)
+        if
+          ::RSpec.configuration.color_enabled?
+        then
+          Colors.add_color(text, color, mode)
+        else
+          text
+        end
       end
 
       def next_indentation
         '  ' * (@group_level+1)
-      end
-
-      private
-
-      def text_with_color(text, color)
-        if ::RSpec.configuration.color_enabled?
-          text.colorize(color)
-        else
-          text
-        end
       end
 
     end

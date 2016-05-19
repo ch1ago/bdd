@@ -141,6 +141,33 @@ Output
 
 
 
+## Defining custom steps
+
+I case your flow is different and you would like to define your own wording
+it can be done with:
+
+```ruby
+require "bdd/rspec/example_group_steps"
+
+module ExampleGroupPolish
+  include ExampleGroupSteps
+  define_bdd_step(*%w[Zakładając Jeśli To]) # Polish versions :)
+end
+
+RSpec::Core::ExampleGroup.send :include, ExampleGroupPolish
+```
+
+To avoid loading `Given` and the rest, in `Gemfile` change to:
+
+```ruby
+gem 'bdd', require: 'bdd/rspec/example_group_steps' # or false
+```
+
+
+
+
+
+
 ## Development
 
 Currently we only support __RSpec__ and __Minitest__
