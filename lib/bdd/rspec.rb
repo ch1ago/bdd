@@ -1,5 +1,11 @@
-# require "rspec/core"
+require 'rspec'
 
-require 'bdd/rspec/example_group'
+module Bdd
+  module RSpec
+    Formatter = Class.new(::RSpec::Core::Formatters::DocumentationFormatter)
+  end
+end
 
-RSpec::Core::ExampleGroup.send :include, Bdd::RSpec::ExampleGroup
+require 'bdd' # must load after Bdd::RSpec
+
+Bdd::Adapters::RSpecAdapter.register

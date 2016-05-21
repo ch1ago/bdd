@@ -23,11 +23,11 @@ module Bdd
       :hide      => 8  # Hide text (foreground color would be the same as background)
     }
 
-    def self.add_color(text, color, mode = :default)
+    def self.add(text, color, mode = :default)
       "\033[#{SHELL_MODES_DEFINITION[mode]};#{SHELL_COLORS_DEFINITION[color]}m#{text}\033[0m"
     end
 
-    def self.remove_color(text)
+    def self.clear(text)
       text.gsub(/\033\[[0-9;]+m/m, "")
     end
   end
