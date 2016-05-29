@@ -1,26 +1,16 @@
-## Bdd
+# Bdd
 
-Bdd brings you cucumber-style Given/When/Then/And/But test reports
-
-### Status
-
-| Our Tests | Latest Version | # of Downloads | Contribute |
-| :----: | :----: | :----: | :----: |
-| [![Master Build Status](https://travis-ci.org/thejamespinto/bdd.svg?branch=master)](https://travis-ci.org/thejamespinto/bdd) | [![Gem Version](https://img.shields.io/gem/v/bdd.svg)](https://rubygems.org/gems/bdd) | [![Downloads](http://img.shields.io/gem/dt/bdd.svg)](https://rubygems.org/gems/bdd) | [![GitHub Issues](https://img.shields.io/github/issues/thejamespinto/bdd.svg)](https://rubygems.org/gems/bdd) |
-
-[![GitHub License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://rubygems.org/gems/bdd)
+Bdd is Cucumber without Regex. Compatible with both RSpec and Minitest.
 
 
 
+## Status
 
-### Description
-
-This gem brings two major functionality to your tests
-
-* Verbosity for rspec documentation formatter.
-* Ability to comment or describe set of actions in example into some step.
-
-
+| Is It Working? | Is It Tested? | Code Quality |
+|:---|:---|:---|
+| [![Master Build Status](https://api.travis-ci.org/thejamespinto/bdd.svg?branch=master)](https://travis-ci.org/thejamespinto/bdd) | [![Code Climate](https://codeclimate.com/github/thejamespinto/bdd/coverage.svg)](https://codeclimate.com/github/thejamespinto/bdd) | [![Code Climate](https://codeclimate.com/github/thejamespinto/bdd.svg)](https://codeclimate.com/github/thejamespinto/bdd) |
+| **# of Downloads** | **Maintainance Status** | **Get Involved!** |
+| [![Downloads](http://img.shields.io/gem/dt/bdd.svg)](https://rubygems.org/gems/bdd) | [![Dependency Status](https://gemnasium.com/badges/github.com/thejamespinto/bdd.svg)](https://gemnasium.com/github.com/thejamespinto/bdd) | [![GitHub Issues](https://img.shields.io/github/issues/thejamespinto/bdd.svg)](https://github.com/thejamespinto/bdd/issues) |
 
 
 
@@ -31,12 +21,12 @@ This gem brings two major functionality to your tests
 
 
 
-### RSpec
+#### RSpec
 
 ```ruby
 # Gemfile
 
-group :test do
+group :development, :test do
   gem 'rspec'
   gem 'bdd'
 end
@@ -62,12 +52,12 @@ end
 
 
 
-### Minitest
+#### Minitest
 
 ```ruby
 # Gemfile
 
-group :test do
+group :development, :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'bdd'
@@ -122,7 +112,7 @@ end
 
 Run tests
 
-`rspec -fd spec/features/search_spec.rb`
+`rspec spec/features/search_spec.rb`
 
 Output
 
@@ -135,11 +125,13 @@ Output
 </pre>
 
 
-### More Examples
+#### More Examples
 
 * [READ ALL EXAMPLES](http://github.com/thejamespinto/bdd/tree/master/examples)
 
 <br><br><br><br>
+
+
 
 
 
@@ -182,6 +174,49 @@ Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 
 
 
+
+## Why
+
+This gem helps teams write better tests.
+
+#### It Helps Testers
+
+* Define clear pre and post-conditions;
+* Organize tests;
+* Visualize blindspots;
+* Highlight variations between scenarios (between examples);
+
+#### It Helps Developers
+
+* Maintain clean code;
+* Predict side effects;
+* Scan titled steps;
+* Save time interpreting code;
+* Remove the need for comments;
+
+#### It Helps New Team Members
+
+* Replace a user manual;
+
+#### It Helps Stakeholders
+
+* See the big picture;
+
+#### It Helps Business Analysts
+
+* Understand complexity;
+* Weight requirements;
+* Postpone demands;
+
+### It Helps Project Managers
+
+* Estimate time;
+* Measure scenarios per sub-system;
+
+
+
+
+
 ## Authors
 
 * [James Pinto](http://github.com/thejamespinto)
@@ -196,14 +231,37 @@ Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-## Alternatives and Inspiration
+## Alternatives
 
-* [rspec-steps](https://github.com/LRDesign/rspec-steps)
-* [rspec-given](https://github.com/jimweirich/rspec-given)
-* [rspec-example_steps](https://github.com/railsware/rspec-example_steps)
-* [cucumber](https://github.com/cucumber/cucumber)
+These are some other gems that solve similar problems in similar ways
 
-<pre>
-  <b>rspec-steps</b>, <b>rspec-given</b> and <b>rspec-example_steps</b> run <i>AS</i> examples.
-  <b>bdd</b> and <b>cucumber</b> run <i>INSIDE</i> examples, running tests faster.
-</pre>
+|              | [rspec-given](https://github.com/jimweirich/rspec-given) | [rspec-example_steps](https://github.com/railsware/rspec-example_steps) | [cucumber](https://github.com/cucumber/cucumber)    | [bdd](https://github.com/thejamespinto/bdd)   |
+| ---          | ---         | ---                 | ---         | ---             |
+| Quantity     | More Tests  | More Tests          | Fewer Tests | __Fewer Tests__ |
+| Granurality  | Assertion   | Assertion           | Example     | __Example__     |
+| Output Level | Example     | Example             | Assertion   | __Assertion__   |
+| Best For     | Units       | Units               | Acceptance  | __Acceptance__  |
+| Regexp       | -           | -                   | 😞 Yes       | __No Need__ 😎 |
+| Extra layer  | -           | -                   | 😭 Yes       | __No Need__  😎|
+| Capybara     | Yes         | Yes                 | Yes         | __Yes__         |
+| RSpec        | Yes         | Yes                 | Yes         | __Yes__         |
+| Minitest     | -           | -                   | -           | __Yes__  😍     |
+
+
+## FAQ
+
+__Q:__ Is it awesome?
+__A:__ Yes.
+
+__Q:__ Does it use Regex?
+__A:__ No.
+
+__Q:__ That's it?
+__A:__ That's it!
+
+
+
+
+
+
+
