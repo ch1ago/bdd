@@ -47,4 +47,13 @@ describe Zombie do
       expect(zombie.hungry?).to eq(false)
     end
   end
+
+  it "Is not completely written yet" do
+    # so start using bdd gem today
+    When "zombie eats 2 brains" do
+      zombie.eat(2)
+    end
+    # and make your tests STAND OUT
+    Then "zombie should <write code here>"
+  end
 end

@@ -20,7 +20,7 @@ This gem brings two major functionality to your tests
 * Verbosity for rspec documentation formatter.
 * Ability to comment or describe set of actions in example into some step.
 
-<br><br><br><br>
+
 
 
 
@@ -51,19 +51,18 @@ group :test do
 end
 ```
 
-Run specs with custom format specified inline:
+Add this to your `spec/spec_helper.rb` file.
 
-`
-rspec --format Bdd::RSpec::Formatter --color spec
-`
+```ruby
+RSpec.configure do |config|
+  config.color = true
+  config.default_formatter = Bdd::RSpec::Formatter
+end
 
-Or, if you want to use as your default formatter, simply put the options in your .rspec file:
+# optionally, define methods in your own language
 
-`.rspec`
-
-```yml
---format Bdd::RSpec::Formatter
---color
+Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
 
@@ -82,10 +81,14 @@ end
 Add this to your `test/test_helper.rb` file.
 
 ```ruby
-Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
+Minitest::Reporters.use!(Bdd::Minitest::Reporter.new)
+
+# optionally, add methods in your own language
+
+Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
-<br><br><br><br>
 
 
 
@@ -139,42 +142,19 @@ Output
 
 
 
-
-
 ## Defining custom steps
 
-I case your flow is different and you would like to define your own wording
-it can be done with:
+In case your flow is different and you would like to define your own wording.
+
+You can add more English words, or add an entirely new language:
 
 ```ruby
-require "bdd/rspec/example_group_steps"
-
-module ExampleGroupPolish
-  include ExampleGroupSteps
-  define_bdd_step(*%w[Zakładając Jeśli To]) # Polish versions :)
-end
-
-RSpec::Core::ExampleGroup.send :include, ExampleGroupPolish
-```
-
-To avoid loading `Given` and the rest, in `Gemfile` change to:
-
-```ruby
-gem 'bdd', require: 'bdd/rspec/example_group_steps' # or false
+Bdd.define(%w[Given], %w[When Then], %w[And But]) # English
+Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
 
-
-
-
-
-## Development
-
-Currently we only support __RSpec__ and __Minitest__
-
-__test_unit__ pull requests are wanted.
-
-__internationalization__ pull requests are wanted.
 
 
 ## Authors
