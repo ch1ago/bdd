@@ -12,6 +12,6 @@ if defined?(::RSpec::Core) && !defined?(Bdd::RSpec)
   require 'bdd/rspec'
 end
 
-if defined?(::Minitest::Reporter) && !defined?(Bdd::Minitest)
+if defined?(::Minitest::Reporters) && !defined?(Bdd::Minitest)
   require 'bdd/minitest'
 end
