@@ -54,7 +54,7 @@ describe Minitest::Reporters::SpecReporter do
     @reporter = Bdd::Minitest::Reporter.new
     @reporter.io = StringIO.new
     Minitest::Reporters.use!(@reporter)
-    Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+    Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
   end
 
   def run_test(name)

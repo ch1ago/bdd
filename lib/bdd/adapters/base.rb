@@ -4,7 +4,7 @@ module Bdd
       def self.register
         Bdd.adapters << adapter = new
         adapter.register
-        Bdd.define(%w[Given], %w[When Then], %w[And But])
+        Bdd.add_language(%w[Given], %w[When Then], %w[And But])
       end
 
       def register

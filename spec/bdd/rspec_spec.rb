@@ -4,7 +4,7 @@ require 'bdd/rspec'
 describe Bdd::RSpec::Formatter do
 
   it "represents nested groups using hierarchy tree" do
-    Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+    Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
 
     suite.run(config.reporter)
 

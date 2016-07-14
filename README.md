@@ -52,10 +52,10 @@ RSpec.configure do |config|
   config.default_formatter = Bdd::RSpec::Formatter
 end
 
-# optionally, define methods in your own language
-# Bdd.define(%w[Given], %w[When Then], %w[And But]) # English
-# Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-# Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
+# Optionally, add your language:
+# Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
+# Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+# Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
 
@@ -79,10 +79,10 @@ require 'bdd/minitest'
 
 Minitest::Reporters.use!(Bdd::Minitest::Reporter.new)
 
-# optionally, define methods in your own language:
-# Bdd.define(%w[Given], %w[When Then], %w[And But]) # English
-# Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-# Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
+# Optionally, add your language:
+# Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
+# Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+# Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
 
@@ -140,16 +140,33 @@ Output
 
 
 
-## Defining custom steps
+## Customize
 
-In case your flow is different and you would like to define your own wording.
+By default, Bdd adds the following methods to you `Given`, `When`, `Then`, `And` and `But`.
 
-You can add more English words, or add an entirely new language:
+You may need more! Bdd will help you with that too.
 
 ```ruby
-Bdd.define(%w[Given], %w[When Then], %w[And But]) # English
-Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
+# example with words
+
+Bdd.add_language(%w[Given], %w[When Then], %w[And But])
+
+Bdd.add_language(%w[], %w[], %w[AndGiven AndThen ButGiven ButThen])
+
+Bdd.add_language(%w[PreCondition], %w[When], %w[PostCondition])
+
+Bdd.add_language(%w[Backround], %w[When], %w[Expects])
+
+```
+
+```ruby
+# example with languages
+
+Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
+
+Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+
+Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
 

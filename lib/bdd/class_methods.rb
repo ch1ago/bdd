@@ -4,7 +4,11 @@ module Bdd
       @adapters ||= []
     end
 
-    def define(pre_conditions, post_conditions, conjunctions)
+    def define(*)
+      raise "`BDD.define` has been DEPRECTEAD, please use `Bdd.add_language` instead."
+    end
+
+    def add_language(pre_conditions, post_conditions, conjunctions)
       conjunctions += pre_conditions + post_conditions
       x = conjunctions.map(&:length).max
       Title.length = x
