@@ -29,65 +29,63 @@ This gem brings two major functionality to your tests
 
 ## Installation
 
-Include in your Gemfile:
+
+
+### RSpec
 
 ```ruby
-group :test do
-  # pick one
-  gem 'bdd', require: 'bdd/rspec'
-  gem 'bdd', require: 'bdd/minitest'
-end
-```
+# Gemfile
 
-
-
-
-### Installation For RSpec
-
-```ruby
 group :test do
   gem 'rspec'
-  gem 'bdd', require: 'bdd/rspec'
+  gem 'bdd'
 end
 ```
 
-Add this to your `spec/spec_helper.rb` file.
-
 ```ruby
+# spec/spec_helper.rb
+
+require 'bdd/rspec'
+
 RSpec.configure do |config|
   config.color = true
   config.default_formatter = Bdd::RSpec::Formatter
 end
 
 # optionally, define methods in your own language
-
-Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
+# Bdd.define(%w[Given], %w[When Then], %w[And But]) # English
+# Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+# Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
 
 
-
-### Installation For Minitest
+### Minitest
 
 ```ruby
+# Gemfile
+
 group :test do
   gem 'minitest'
   gem 'minitest-reporters'
-  gem 'bdd', require: 'bdd/minitest'
+  gem 'bdd'
 end
 ```
 
-Add this to your `test/test_helper.rb` file.
-
 ```ruby
+# test/test_helper.rb
+
+require 'bdd/minitest'
+
 Minitest::Reporters.use!(Bdd::Minitest::Reporter.new)
 
-# optionally, add methods in your own language
-
-Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
+# optionally, define methods in your own language:
+# Bdd.define(%w[Given], %w[When Then], %w[And But]) # English
+# Bdd.define(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+# Bdd.define(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
+
+
 
 
 
