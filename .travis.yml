@@ -9,3 +9,7 @@ script: bundle exec rspec spec
 cache:
   - bundler
   - apt
+
+addons:
+  code_climate:
+    repo_token: 13be1671d8548ee7163f609a6c3da9c315fa22c92b9d71ce57bdb7c12b8ef905
