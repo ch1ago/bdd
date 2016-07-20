@@ -53,8 +53,10 @@ RSpec.configure do |config|
 end
 
 # Optionally, add your language:
+# Bdd.add_language(pre_conditions, post_conditions, conjunctions)
 # Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
 # Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+# Bdd.add_language(%w[DadoQue], %w[Cuando Entonces], %w[Y Pero]) # Spanish
 # Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
@@ -80,8 +82,10 @@ require 'bdd/minitest'
 Minitest::Reporters.use!(Bdd::Minitest::Reporter.new)
 
 # Optionally, add your language:
+# Bdd.add_language(pre_conditions, post_conditions, conjunctions)
 # Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
 # Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+# Bdd.add_language(%w[DadoQue], %w[Cuando Entonces], %w[Y Pero]) # Spanish
 # Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
@@ -149,22 +153,28 @@ You may need more! Bdd will help you with that too.
 ```ruby
 # example with words
 
+Bdd.add_language(pre_conditions, post_conditions, conjunctions)
+
 Bdd.add_language(%w[Given], %w[When Then], %w[And But])
 
 Bdd.add_language(%w[], %w[], %w[AndGiven AndThen ButGiven ButThen])
 
-Bdd.add_language(%w[PreCondition], %w[When], %w[PostCondition])
+Bdd.add_language(%w[PreCondition], %w[When PostCondition], %w[And But])
 
-Bdd.add_language(%w[Backround], %w[When], %w[Expects])
+Bdd.add_language(%w[Background], %w[When Expects], %w[And But])
 
 ```
 
 ```ruby
 # example with languages
 
+Bdd.add_language(pre_conditions, post_conditions, conjunctions)
+
 Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
 
 Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
+
+Bdd.add_language(%w[DadoQue], %w[Cuando Entonces], %w[Y Pero]) # Spanish
 
 Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
