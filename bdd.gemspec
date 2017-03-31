@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency 'codeclimate-test-reporter'
-  spec.add_development_dependency 'rubocop', '~> 0'
+  spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'minitest-reporters', '1.1.9'
