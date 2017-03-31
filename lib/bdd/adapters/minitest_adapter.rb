@@ -3,10 +3,12 @@ module Bdd
     class MinitestAdapter < Base
 
       def initialize
-        @example_module          = Test
-        @formatter_module        = Reporter
-        @formatter_class         = Bdd::Minitest::Reporter
-        @framework_example_class = ::Minitest::Test
+        super(
+          Test,
+          Reporter,
+          Bdd::Minitest::Reporter,
+          ::Minitest::Test
+        )
       end
 
       module Reporter

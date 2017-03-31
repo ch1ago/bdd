@@ -3,17 +3,20 @@ module Bdd
     class RSpecAdapter < Base
 
       def initialize
-        @example_module          = ExampleGroup
-        @formatter_module        = Formatter
-        @formatter_class         = Bdd::RSpec::Formatter
-        @framework_example_class = ::RSpec::Core::ExampleGroup
+        super(
+          ExampleGroup,
+          Formatter,
+          Bdd::RSpec::Formatter,
+          ::RSpec::Core::ExampleGroup
+        )
+      end
+
+      def register
+        super
+        ::RSpec::Core::Formatters.register(Bdd::RSpec::Formatter)
       end
 
       module Formatter
-        def self.included(base)
-          ::RSpec::Core::Formatters.register base
-        end
-
         def example_passed(passed)
           super
           bdd_puts(passed.example)

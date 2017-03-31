@@ -7,6 +7,13 @@ module Bdd
         Bdd.add_language(%w[Given], %w[When Then], %w[And But])
       end
 
+      def initialize(example_module, formatter_module, formatter_class, framework_example_class)
+        @example_module          = example_module
+        @formatter_module        = formatter_module
+        @formatter_class         = formatter_class
+        @framework_example_class = framework_example_class
+      end
+
       def register
         # implementation must set these ivars
         @example_module.const_set(:ClassMethods, Module.new)
