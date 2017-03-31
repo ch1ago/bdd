@@ -1,5 +1,4 @@
-# gems like rspec-rails include 'rspec-core' but not 'rspec'
-defined? RSpec or require 'rspec'
+require 'rspec'
 
 module Bdd
   module RSpec

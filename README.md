@@ -28,6 +28,7 @@ Bdd is Cucumber without Regex. Compatible with both RSpec and Minitest.
 
 group :development, :test do
   gem 'rspec'
+  gem 'rspec-rails' # if you are using Rails
   gem 'bdd'
 end
 ```
@@ -60,6 +61,7 @@ end
 group :development, :test do
   gem 'minitest'
   gem 'minitest-reporters'
+  gem 'minitest-rails' # if you are using Rails
   gem 'bdd'
 end
 ```
