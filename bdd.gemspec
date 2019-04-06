@@ -10,16 +10,22 @@ Gem::Specification.new do |spec|
   spec.email         = ["thejamespinto@gmail.com"]
 
   spec.summary       =
-  spec.description   = %q{Cucumber style in your RSpec tests}
+  spec.description   = %q{Easily add User Stories to rspec and minitest}
   spec.homepage      = "https://github.com/thejamespinto/bdd"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "bin"
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.license       = "MIT"
+  # spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
+
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/master/CHANGELOG.md"
+
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(bin|examples|images|test)/}) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'minitest'
-  spec.add_development_dependency 'minitest-reporters', '1.1.9'
+  spec.add_development_dependency 'bundler' #, '~> 2.0'
+  spec.add_development_dependency 'rake' #, '~> 13.0'
+  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'minitest', '~> 5.11'
+  spec.add_development_dependency 'simplecov', '~> 0.17'
 end

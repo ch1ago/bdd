@@ -1,0 +1,92 @@
+
+
+
+Bdd
+  Auto Sorting
+    Example 1
+      [1;32mGiven[0m 1
+    Example 2
+      [1;32mGiven[0m 2
+    Example 3
+      [1;32mGiven[0m 3
+  Filters
+    Filtered Unpassing Examples
+      Fail Examples
+        Fails on unmet expectations
+          [1;32mGiven[0m x
+          [1;32m When[0m y
+          [1;31m Then[0m z1 expectations fail (failed)
+      Skip Examples
+        On Empty Block
+          Post Condition
+            Example
+              [1;32m When[0m y
+              [1;33m Then[0m z is skipped by empty block (skipped)
+          Pre Condition
+            Example
+              [1;33mGiven[0m x is skipped by empty block (skipped)
+        On Skip Command
+          Post Condition
+            Example
+              [1;32m When[0m y
+              [1;33m Then[0m z is skipped by the skip command (skipped)
+          Pre Condition
+            Example
+              [1;33mGiven[0m x is skipped by the skip command (skipped)
+    Passing Examples
+      Example 1
+        [1;32mGiven[0m BEFORE IT ALL
+        [1;32m When[0m foo 1
+        [1;32m Then[0m AFTER IT ALL
+      Example 2
+        [1;32mGiven[0m BEFORE IT ALL
+        [1;32m When[0m foo 2
+        [1;32m Then[0m AFTER IT ALL
+      Example 3
+        [1;32mGiven[0m BEFORE IT ALL
+        [1;32m When[0m foo 3
+        [1;32m Then[0m AFTER IT ALL
+  Language
+    English
+      [1;32mGiven[0m x
+      [1;32m   But[0m x1
+      [1;32m When[0m y
+      [1;32m   And[0m y1
+      [1;32m Then[0m z
+      [1;32m   And[0m z1
+      [1;32m   And[0m z2
+      [1;32m   And[0m z3
+    Portuguese
+      [1;32m Dado[0m x
+      [1;32mQuando[0m y
+      [1;32mEntao[0m z
+  Simple Unpassing Examples
+    Fail Examples
+      Fails on raised exceptions
+        [1;32mGiven[0m x
+        [1;32m   But[0m x1
+        [1;32m When[0m y
+        [1;32m   And[0m y1
+        [1;32m Then[0m z
+        [1;31m   And[0m z1 expectations fail (RuntimeError) foo
+      Fails on unmet expectations
+        [1;32mGiven[0m x
+        [1;32m   But[0m x1
+        [1;32m When[0m y
+        [1;32m   And[0m y1
+        [1;32m Then[0m z
+        [1;31m   And[0m z1 expectations fail (failed)
+    Skip Examples
+      Skips on empty block
+        [1;32mGiven[0m x
+        [1;32m   But[0m x1
+        [1;32m When[0m y
+        [1;33m   And[0m y1 is skipped (skipped)
+      Skips on skip command
+        [1;32mGiven[0m x
+        [1;32m   But[0m x1
+        [1;32m When[0m y
+        [1;33m   And[0m y1 is skipped (skipped)
+
+
+

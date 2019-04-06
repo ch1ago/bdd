@@ -1,16 +1,71 @@
 # Bdd
 
-Bdd is Cucumber without Regex. Compatible with both RSpec and Minitest.
-
+Bdd is a **User Story Framework**. Add Acceptance Criteria documentation directly on your Ruby Tests.
 
 
 ## Status
 
-| Is It Working? | Is It Tested? | Code Quality |
-|:---|:---|:---|
-| [![Master Build Status](https://api.travis-ci.org/thejamespinto/bdd.svg?branch=master)](https://travis-ci.org/thejamespinto/bdd) | [![Code Climate](https://codeclimate.com/github/thejamespinto/bdd/coverage.svg)](https://codeclimate.com/github/thejamespinto/bdd) | [![Code Climate](https://codeclimate.com/github/thejamespinto/bdd.svg)](https://codeclimate.com/github/thejamespinto/bdd) |
-| **# of Downloads** | **Maintainance Status** | **Get Involved!** |
-| [![Downloads](http://img.shields.io/gem/dt/bdd.svg)](https://rubygems.org/gems/bdd) | [![Dependency Status](https://gemnasium.com/badges/github.com/thejamespinto/bdd.svg)](https://gemnasium.com/github.com/thejamespinto/bdd) | [![GitHub Issues](https://img.shields.io/github/issues/thejamespinto/bdd.svg)](https://github.com/thejamespinto/bdd/issues) |
+| Is It Working? | Is It Tested? | Code Quality | **# of Downloads** |  **Get Involved!** |
+|:---|:---|:---|:---|:---|
+| [![Master Build Status](https://api.travis-ci.org/thejamespinto/bdd.svg?branch=master)](https://travis-ci.org/thejamespinto/bdd) | [![Code Climate](https://codeclimate.com/github/thejamespinto/bdd/coverage.svg)](https://codeclimate.com/github/thejamespinto/bdd) | [![Code Climate](https://codeclimate.com/github/thejamespinto/bdd.svg)](https://codeclimate.com/github/thejamespinto/bdd) | [![Downloads](http://img.shields.io/gem/dt/bdd.svg)](https://rubygems.org/gems/bdd) | [![GitHub Issues](https://img.shields.io/github/issues/thejamespinto/bdd.svg)](https://github.com/thejamespinto/bdd/issues) |
+
+
+## Compatibility
+
+<image width=16 src='./images/ruby.png'> Ruby 2.0 through 2.7
+
+## Pitch
+
+<pre>
+This gem provides the same benefits as gem <b>Cucumber</b>, and it's easier to use in projects.
+
+Works with all ruby test frameworks (RSpec and Minitest).
+Works with all test types (Capybara, units, features, etc).
+
+
+1. Take your User Stories.
+
+2. Write them as unobtrusive commentary in your test code.
+
+3. Run your tests.
+
+4. You'll see all your User Stories neatly organized in the output.
+
+5. If your code breaks, that line will be highlighted in red.
+</pre>
+
+[Read more about User Stories on Wikipedia](https://en.wikipedia.org/wiki/User_story).
+
+
+
+
+
+
+
+## Example
+
+<table>
+  <tr>
+    <td style="vertical-align: top">
+      <center><strong>1. BEFORE</strong></center>
+      <p><img alt='Before' src='https://github.com/thejamespinto/bdd/raw/v1/images/before.png'/></p>
+    </td>
+    <td style="vertical-align: top">
+      <center><strong>2. AFTER</strong></center>
+      <p><img alt='After' src='https://github.com/thejamespinto/bdd/raw/v1/images/after.png'/></p>
+    </td>
+  </tr>
+  <tr style="background: white">
+    <td style="vertical-align: top">
+      <center><strong>3. RUN TESTS</strong></center>
+      <p><img alt='Run Tests' src='https://github.com/thejamespinto/bdd/raw/v1/images/run.png'/></p>
+    </td>
+    <td style="vertical-align: top">
+      <center><strong>4. CHECK OUTPUT</strong></center>
+      <p><img alt='Check Output' src='https://github.com/thejamespinto/bdd/raw/v1/images/output.png'/></p>
+    </td>
+  </tr>
+</table>
 
 
 
@@ -20,8 +75,7 @@ Bdd is Cucumber without Regex. Compatible with both RSpec and Minitest.
 ## Installation
 
 
-
-#### RSpec
+#### Installation For RSpec
 
 ```ruby
 # Gemfile
@@ -35,32 +89,30 @@ end
 
 ```ruby
 # spec/spec_helper.rb
+require 'bdd'
 
-require 'bdd/rspec'
+Bdd.configure do |config|
+  config.framework :rspec
+  config.reporters :output, :yaml
+  config.language %w[Given], %w[When Then], %w[And But]
 
-RSpec.configure do |config|
-  config.color = true
-  config.default_formatter = Bdd::RSpec::Formatter
+  # Optionally, add other languages:
+  # config.language pre_conditions, post_conditions, conjunctions
+  # config.language %w[Dado], %w[Quando Entao], %w[E Mas] # Portuguese
+  # config.language %w[Dato], %w[Cuando Entonces], %w[Y Mas] # Spanish
+  # config.language %w[Zakładając], %w[Jeśli To], %w[Także Ale] # Polish
 end
-
-# Optionally, add your language:
-# Bdd.add_language(pre_conditions, post_conditions, conjunctions)
-# Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
-# Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-# Bdd.add_language(%w[DadoQue], %w[Cuando Entonces], %w[Y Pero]) # Spanish
-# Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
 ```
 
 
 
-#### Minitest
+#### Installation For Minitest
 
 ```ruby
 # Gemfile
 
 group :development, :test do
   gem 'minitest'
-  gem 'minitest-reporters'
   gem 'minitest-rails' # if you are using Rails
   gem 'bdd'
 end
@@ -68,160 +120,31 @@ end
 
 ```ruby
 # test/test_helper.rb
+require 'bdd'
 
-require 'bdd/minitest'
+Bdd.configure do |config|
+  config.framework :minitest
+  config.reporters :output, :yaml
+  config.language %w[Given], %w[When Then], %w[And But]
 
-Minitest::Reporters.use!(Bdd::Minitest::Reporter.new)
-
-# Optionally, add your language:
-# Bdd.add_language(pre_conditions, post_conditions, conjunctions)
-# Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
-# Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-# Bdd.add_language(%w[DadoQue], %w[Cuando Entonces], %w[Y Pero]) # Spanish
-# Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
-```
-
-
-
-
-
-
-
-
-## Usage
-
-File `spec/features/search_spec.rb`
-
-```ruby
-context 'Searching' do
-  it 'Result is found' do
-    Given 'I am on the search page' do
-      visit '/search'
-      expect(page).to have_content('Search')
-    end
-
-    When 'I search something' do
-      fill_in 'Search', with: 'John'
-      click_button 'Go'
-    end
-
-    Then 'I should see the word result' do
-      expect(page).to have_content('Result')
-    end
-  end
+  # Optionally, add other languages:
+  # config.language pre_conditions, post_conditions, conjunctions
+  # config.language %w[Dado], %w[Quando Entao], %w[E Mas] # Portuguese
+  # config.language %w[Dato], %w[Cuando Entonces], %w[Y Mas] # Spanish
+  # config.language %w[Zakładając], %w[Jeśli To], %w[Także Ale] # Polish
 end
 ```
 
-Run tests
-
-`rspec spec/features/search_spec.rb`
-
-Output
-
-<pre>
-<b>Searching</b>
-  <b>Result is found</b>
-    <b>Given</b> I am on the search page
-    <b> When</b> I search something
-    <b> Then</b> I should see the word result
-</pre>
-
-
-#### More Examples
-
-* [READ ALL EXAMPLES](http://github.com/thejamespinto/bdd/tree/master/examples)
-
-<br><br><br><br>
 
 
 
 
 
 
-## Customize
-
-By default, Bdd adds the following methods to you `Given`, `When`, `Then`, `And` and `But`.
-
-You may need more! Bdd will help you with that too.
-
-```ruby
-# example with words
-
-Bdd.add_language(pre_conditions, post_conditions, conjunctions)
-
-Bdd.add_language(%w[Given], %w[When Then], %w[And But])
-
-Bdd.add_language(%w[], %w[], %w[AndGiven AndThen ButGiven ButThen])
-
-Bdd.add_language(%w[PreCondition], %w[When PostCondition], %w[And But])
-
-Bdd.add_language(%w[Background], %w[When Expects], %w[And But])
-
-```
-
-```ruby
-# example with languages
-
-Bdd.add_language(pre_conditions, post_conditions, conjunctions)
-
-Bdd.add_language(%w[Given], %w[When Then], %w[And But]) # English
-
-Bdd.add_language(%w[Dado], %w[Quando Entao], %w[E Mas]) # Portuguese
-
-Bdd.add_language(%w[DadoQue], %w[Cuando Entonces], %w[Y Pero]) # Spanish
-
-Bdd.add_language(%w[Zakładając], %w[Jeśli To], %w[Także Ale]) # Polish
-```
-
-
-
-
-
-## Why
-
-This gem helps teams write better tests.
-
-#### It Helps Testers
-
-* Define clear pre and post-conditions;
-* Organize tests;
-* Visualize blindspots;
-* Highlight variations between scenarios (between examples);
-
-#### It Helps Developers
-
-* Maintain clean code;
-* Predict side effects;
-* Scan titled steps;
-* Save time interpreting code;
-* Remove the need for comments;
-
-#### It Helps New Team Members
-
-* Replace a user manual;
-
-#### It Helps Stakeholders
-
-* See the big picture;
-
-#### It Helps Business Analysts
-
-* Understand complexity;
-* Weight requirements;
-* Postpone demands;
-
-### It Helps Project Managers
-
-* Estimate time;
-* Measure scenarios per sub-system;
-
-
-
-
-
-## Authors
+## Authors & Contributions
 
 * [James Pinto](http://github.com/thejamespinto)
+* [Michal Papis](http://github.com/mpapis)
 
 
 
@@ -233,37 +156,15 @@ This gem helps teams write better tests.
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-## Alternatives
 
-These are some other gems that solve similar problems in similar ways
+## Documentation
 
-|              | [rspec-given](https://github.com/jimweirich/rspec-given) | [rspec-example_steps](https://github.com/railsware/rspec-example_steps) | [cucumber](https://github.com/cucumber/cucumber)    | [bdd](https://github.com/thejamespinto/bdd)   |
-| ---          | ---         | ---                 | ---         | ---             |
-| Quantity     | More Tests  | More Tests          | Fewer Tests | __Fewer Tests__ |
-| Granurality  | Assertion   | Assertion           | Example     | __Example__     |
-| Output Level | Example     | Example             | Assertion   | __Assertion__   |
-| Best For     | Units       | Units               | Acceptance  | __Acceptance__  |
-| Regexp       | -           | -                   | 😞 Yes       | __No Need__ 😎 |
-| Extra layer  | -           | -                   | 😭 Yes       | __No Need__  😎|
-| Capybara     | Yes         | Yes                 | Yes         | __Yes__         |
-| RSpec        | Yes         | Yes                 | Yes         | __Yes__         |
-| Minitest     | -           | -                   | -           | __Yes__  😍     |
+![Chart](./images/bdd.png)
 
-
-## FAQ
-
-__Q:__ Is it awesome?
-__A:__ Yes.
-
-__Q:__ Does it use Regex?
-__A:__ No.
-
-__Q:__ That's it?
-__A:__ That's it!
-
-
-
-
-
-
-
+- Frameworks
+    - [x] RSpec
+    - [x] Minitest
+- Reporters
+    - [x] Output
+    - [x] YAML
+    - [ ] HTML

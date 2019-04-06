@@ -1,0 +1,191 @@
+---
+Bdd:
+  Auto Sorting:
+    Example 1:
+    - - :passed
+      - Given
+      - '1'
+    Example 2:
+    - - :passed
+      - Given
+      - '2'
+    Example 3:
+    - - :passed
+      - Given
+      - '3'
+  Filters:
+    Filtered Unpassing Examples:
+      Fail Examples:
+        Fails on unmet expectations:
+        - - :passed
+          - Given
+          - x
+        - - :passed
+          - When
+          - y
+        - - :failed
+          - Then
+          - z1 expectations fail (failed)
+      Skip Examples:
+        On Empty Block:
+          Post Condition:
+            Example:
+            - - :passed
+              - When
+              - y
+            - - :skipped
+              - Then
+              - z is skipped by empty block (skipped)
+          Pre Condition:
+            Example:
+            - - :skipped
+              - Given
+              - x is skipped by empty block (skipped)
+        On Skip Command:
+          Post Condition:
+            Example:
+            - - :passed
+              - When
+              - y
+            - - :skipped
+              - Then
+              - z is skipped by the skip command (skipped)
+          Pre Condition:
+            Example:
+            - - :skipped
+              - Given
+              - x is skipped by the skip command (skipped)
+    Passing Examples:
+      Example 1:
+      - - :passed
+        - Given
+        - BEFORE IT ALL
+      - - :passed
+        - When
+        - foo 1
+      - - :passed
+        - Then
+        - AFTER IT ALL
+      Example 2:
+      - - :passed
+        - Given
+        - BEFORE IT ALL
+      - - :passed
+        - When
+        - foo 2
+      - - :passed
+        - Then
+        - AFTER IT ALL
+      Example 3:
+      - - :passed
+        - Given
+        - BEFORE IT ALL
+      - - :passed
+        - When
+        - foo 3
+      - - :passed
+        - Then
+        - AFTER IT ALL
+  Language:
+    English:
+    - - :passed
+      - Given
+      - x
+    - - :passed
+      - But
+      - x1
+    - - :passed
+      - When
+      - y
+    - - :passed
+      - And
+      - y1
+    - - :passed
+      - Then
+      - z
+    - - :passed
+      - And
+      - z1
+    - - :passed
+      - And
+      - z2
+    - - :passed
+      - And
+      - z3
+    Portuguese:
+    - - :passed
+      - Dado
+      - x
+    - - :passed
+      - Quando
+      - y
+    - - :passed
+      - Entao
+      - z
+  Simple Unpassing Examples:
+    Fail Examples:
+      Fails on raised exceptions:
+      - - :passed
+        - Given
+        - x
+      - - :passed
+        - But
+        - x1
+      - - :passed
+        - When
+        - y
+      - - :passed
+        - And
+        - y1
+      - - :passed
+        - Then
+        - z
+      - - :failed
+        - And
+        - z1 expectations fail (RuntimeError) foo
+      Fails on unmet expectations:
+      - - :passed
+        - Given
+        - x
+      - - :passed
+        - But
+        - x1
+      - - :passed
+        - When
+        - y
+      - - :passed
+        - And
+        - y1
+      - - :passed
+        - Then
+        - z
+      - - :failed
+        - And
+        - z1 expectations fail (failed)
+    Skip Examples:
+      Skips on empty block:
+      - - :passed
+        - Given
+        - x
+      - - :passed
+        - But
+        - x1
+      - - :passed
+        - When
+        - y
+      - - :skipped
+        - And
+        - y1 is skipped (skipped)
+      Skips on skip command:
+      - - :passed
+        - Given
+        - x
+      - - :passed
+        - But
+        - x1
+      - - :passed
+        - When
+        - y
+      - - :skipped
+        - And
+        - y1 is skipped (skipped)
