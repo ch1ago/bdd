@@ -10,16 +10,17 @@ Gem::Specification.new do |spec|
   spec.email         = ["thejamespinto@gmail.com"]
 
   spec.summary       =
-  spec.description   = %q{Cucumber style in your RSpec tests}
+  spec.description   = %q{Cucumber style in your RSpec/Minitest tests}
   spec.homepage      = "https://github.com/thejamespinto/bdd"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(images|test|spec|test_frameworks)/}) }
   spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'minitest'
-  spec.add_development_dependency 'minitest-reporters', '1.1.9'
+  spec.add_development_dependency 'bundler', '~> 2.0'
+  spec.add_development_dependency 'rake', '~> 13.0'
+  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'minitest', '~> 5.14'
+  spec.add_development_dependency 'simplecov', '~> 0.18'
 end
