@@ -18,7 +18,6 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency 'codeclimate-test-reporter'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'minitest'
